@@ -1,11 +1,14 @@
+from src.routes.ChargerConfigurationRoutes import ChargerConfigurationRoutes
+from src.routes.ChargerRoutes import ChargerRoutes
 from src.CentralSystem import CentralSystem
 from src.ChargePoint import ChargePoint
-
+from Single import Single
 from aiohttp import web
 import websockets
 import asyncio
 import logging
 
+Single().emitter.on('start_charger_background', ChargerRoutes.start_charger_background)
 
 class WebServer:
 
@@ -44,6 +47,21 @@ class WebServer:
             [web.post("/trigger-message", self.trigger_message)])
         self.app.add_routes(
             [web.post("/reset", self.reset)])
+        
+        self.app.add_routes(
+            [web.post("/chargers/add-charger", ChargerRoutes.add_chargers)])
+        self.app.add_routes(
+            [web.get("/chargers/get-one", ChargerRoutes.get_charger_by_id)])
+        self.app.add_routes(
+            [web.get("/chargers/get-all", ChargerRoutes.get_all_chargers)])
+        self.app.add_routes(
+            [web.post("/chargers/start", ChargerRoutes.start_charger)])
+        
+        # Charger Configurations
+        self.app.add_routes(
+            [web.get("/charger-configuration/by-charger", ChargerConfigurationRoutes.get_charger_configuration_by_charger_id)])
+
+
         self.app.router.add_get("/", self.health)
 
         self.runner = web.AppRunner(self.app)

@@ -1,3 +1,6 @@
 ocpp
 websockets
 aiohttp
+certifi
+python-dateutil
+pyee
