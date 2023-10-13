@@ -8,7 +8,7 @@ import websockets
 import asyncio
 import logging
 
-Single().emitter.on('start_charger_background', ChargerRoutes.start_charger_background)
+# Single().emitter.on('start_charger_background', ChargerRoutes.start_charger_background)
 
 class WebServer:
 

@@ -48,9 +48,9 @@ class ChargerRoutes:
 
     @staticmethod
     async def start_charger(request):
-        data = await request.json()
-        charger_id = data['charger_id']
-        res = await Charger().get_by_id(charger_id)
+        # data = await request.json()
+        # charger_id = data['charger_id']
+        res = await Charger().get_by_id(request)
         if res is not None:
             # Single().emitter.emit('start_charger_background', res)
             ee.emit('start_charger_background', res)

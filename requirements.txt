@@ -4,3 +4,4 @@ aiohttp
 certifi
 python-dateutil
 pyee
+aio_pika
